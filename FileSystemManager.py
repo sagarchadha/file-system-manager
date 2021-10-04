@@ -44,3 +44,4 @@ class FileSystemManager:
     deletedBlocks = self.usedBlocks[fileId]
     self.freeBlocks = self.freeBlocks + deletedBlocks
     del self.usedBlocks[fileId]
+    return deletedBlocks
