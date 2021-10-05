@@ -1,7 +1,8 @@
 from FileSystemManager import FileSystemManager
 
 class Client(FileSystemManager):
-  commands = {'read': 'read', 'save': 'save', 'del': 'delete'}
+  commands = {'read': 'read', 'save': 'save', 'del': 'delete', 'quit': 'quit'}
+  active = True
 
   def checkArgs(self, args: list) -> bool:
     if args[0] not in client.commands:
@@ -28,11 +29,15 @@ class Client(FileSystemManager):
   def delete(self, fileId: str) -> None:
     result = FileSystemManager.delete(self, fileId)
     print(f'{fileId} was deleted and freed the following blocks: {result}')
+  
+  def quit(self):
+    self.active = False
+    print('Thank you for using this application.')
 
 if __name__ == '__main__':
   client = Client()
 
-  while True:
+  while client.active:
     values = input('Please enter your command:')
     args = values.split()
     if client.checkArgs(args):
