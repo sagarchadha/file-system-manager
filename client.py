@@ -1,12 +1,12 @@
 from FileSystemManager import FileSystemManager
 
 class Client(FileSystemManager):
-  commands = {'read': 'read', 'save': 'save', 'del': 'delete', 'quit': 'quit'}
+  commands = {'read': 'read', 'save': 'save', 'del': 'delete', 'quit': 'quit', 'help': 'listCommands'}
   active = True
 
   def __init__(self, capacity=10):
     super().__init__(capacity=capacity)
-    print(f'Application has started with a capacity of {capacity} blocks')
+    print(f'Application has started with a capacity of {capacity} blocks.')
 
   def checkArgs(self, args: list) -> bool:
     if args[0] not in client.commands:
@@ -14,11 +14,14 @@ class Client(FileSystemManager):
       return False
     return True
   
-  def prompt(self):
-    values = input('Please enter your command:')
+  def prompt(self) -> None:
+    values = input('Please enter your command (type "help" to see list of commands):')
     args = values.split()
     if client.checkArgs(args):
       client.action(args)
+  
+  def listCommands(self) -> None:
+    print(f'The following commands can be used: {", ".join(self.commands.keys())}')
   
   def action(self, user_input: list) -> None:
     try:
@@ -40,7 +43,7 @@ class Client(FileSystemManager):
     result = FileSystemManager.delete(self, fileId)
     print(f'{fileId} was deleted and freed the following blocks: {result}')
   
-  def quit(self):
+  def quit(self) -> None:
     self.active = False
     print('Thank you for using this application.')
 
