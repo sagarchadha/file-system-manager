@@ -6,11 +6,14 @@ class Client(FileSystemManager):
 
   def __init__(self, capacity=10):
     super().__init__(capacity=capacity)
-    print(f'Application has started with a capacity of {capacity} blocks.')
+    print(f'File system manager has started with a capacity of {capacity} blocks.')
 
   def checkArgs(self, args: list) -> bool:
-    if args[0] not in self.commands:
-      print('Unsupported command')
+    if len(args) == 0:
+      print('Error: No command was given')
+      return False
+    elif args[0] not in self.commands:
+      print('Error: Unsupported command')
       return False
     return True
   
@@ -28,8 +31,10 @@ class Client(FileSystemManager):
       user_command, args = user_input[0], user_input[1:]
       command = self.__getattribute__(self.commands[user_command])
       command(*args)
-    except TypeError or ValueError as err:
+    except ValueError as err:
       print(err)
+    except TypeError as err:
+      print('There was a mismatch between the number of arguments required and given for the command.')
   
   def save(self, fileId: str, fileSize: str) -> None:
     result = FileSystemManager.save(self, fileId, fileSize)

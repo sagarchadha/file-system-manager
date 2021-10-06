@@ -15,15 +15,22 @@ class FileSystemManager:
     numBlocks = ceil(fileSize/self.blockSize)
 
     if numBlocks > len(self.freeBlocks):
-      raise ValueError(f'Not enough space for file with size of {fileSize} bytes')
+      raise ValueError(f'Error: Not enough space for file with size of {fileSize} bytes')
     
     return numBlocks
+
+  def convertToInt(self, value: str) -> int:
+    try: 
+      return int(value)
+    except ValueError as err:
+      raise ValueError('Error: File size input is not an integer.')
 
   def save(self, fileId: str, fileSize: str) -> list:
     if fileId in self.usedBlocks:
       raise ValueError('Error: File already exists')
-
-    numBlocks = self.calculateNumBlocks(int(fileSize))
+    
+    
+    numBlocks = self.calculateNumBlocks(self.convertToInt(fileSize))
 
     newBlocks = []
     for _ in range(numBlocks):
