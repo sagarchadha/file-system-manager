@@ -1,4 +1,4 @@
-from FileSystemManager import FileSystemManager
+from fileSystemManager import FileSystemManager
 
 class Client(FileSystemManager):
   commands = {'read': 'read', 'save': 'save', 'del': 'delete', 'quit': 'quit', 'help': 'listCommands'}
@@ -9,7 +9,7 @@ class Client(FileSystemManager):
     print(f'Application has started with a capacity of {capacity} blocks.')
 
   def checkArgs(self, args: list) -> bool:
-    if args[0] not in client.commands:
+    if args[0] not in self.commands:
       print('Unsupported command')
       return False
     return True
@@ -17,8 +17,8 @@ class Client(FileSystemManager):
   def prompt(self) -> None:
     values = input('Please enter your command (type "help" to see list of commands):')
     args = values.split()
-    if client.checkArgs(args):
-      client.action(args)
+    if self.checkArgs(args):
+      self.action(args)
   
   def listCommands(self) -> None:
     print(f'The following commands can be used: {", ".join(self.commands.keys())}')
@@ -46,16 +46,3 @@ class Client(FileSystemManager):
   def quit(self) -> None:
     self.active = False
     print('Thank you for using this application.')
-
-if __name__ == '__main__':
-  capacity = input('Please insert a value for the number of total blocks to be allocated (default is 10 blocks): ')
-  client = None
-
-  if capacity.isdigit():
-    client = Client(int(capacity))
-  else:
-    print('Value is not a valid interger. Using default value for capacity.')
-    client = Client()
-
-  while client.active:
-    client.prompt()
