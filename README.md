@@ -5,7 +5,11 @@ The application can be started in the main directory by running the following co
 
 ## Using the Application
 ### Setting the Capacity of the File System
-Upon startup, the application will prompt for the capacity of the file system. This value is meant to be an integer value. If an invalid value is entered, the default value of 10 blocks will be used. After the capacity is set, the file system manager will prompt the user for commands.
+Upon startup, the application will prompt for the capacity of the file system. This value is meant to be an integer value representing the number of total bytes. 
+
+If an invalid value is entered, the default value of 10240 bytes or 10 blocks will be used. After the capacity is set, the file system manager will prompt the user for commands.
+
+Only blocks of 1024 bytes will be created. If a capacity value does not split into even blocks of 1024 bytes, then the remainder of bytes will be unused. For exmaple, if 1026 bytes are allocated as the capacity, only 1 block of 1024 bytes will be available for use.
 
 ### Commands
 The following are the different commands for the file system:
