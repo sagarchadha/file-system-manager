@@ -4,9 +4,9 @@ class Client(FileSystemManager):
   commands = {'read': 'read', 'save': 'save', 'del': 'delete', 'quit': 'quit', 'help': 'listCommands'}
   active = True
 
-  def __init__(self, capacity=10):
+  def __init__(self, capacity=10240):
     super().__init__(capacity=capacity)
-    print(f'File system manager has started with a capacity of {capacity} blocks.')
+    print(f'File system manager has started with a capacity of {capacity} bytes.')
 
   def checkArgs(self, args: list) -> bool:
     if len(args) == 0:

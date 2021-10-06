@@ -1,13 +1,13 @@
 from client import Client
 
 if __name__ == '__main__':
-  capacity = input('Please insert a capacity value for the number of total blocks to be allocated (default is 10 blocks): ')
+  capacity = input('Please insert a capacity value in bytes to be allocated as the total storage (default is 10240 bytes or 10 blocks): ')
   client = None
-
-  # if capacity.isdigit():
-  if isinstance(capacity, int):
+  
+  try:
+    capacity = int(capacity)
     client = Client(int(capacity))
-  else:
+  except ValueError as err:
     print('Value is not a valid interger. Using default value for capacity.')
     client = Client()
 
