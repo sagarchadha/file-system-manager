@@ -21,12 +21,12 @@ class Client(FileSystemManager):
     values = input('Please enter your command (type "help" to see list of commands):')
     args = values.split()
     if self.checkArgs(args):
-      self.action(args)
+      self.executeCommand(args)
   
   def listCommands(self) -> None:
     print(f'The following commands can be used: {", ".join(self.commands.keys())}')
   
-  def action(self, user_input: list) -> None:
+  def executeCommand(self, user_input: list) -> None:
     try:
       user_command, args = user_input[0], user_input[1:]
       command = self.__getattribute__(self.commands[user_command])
